@@ -16,8 +16,55 @@
   "contributes": {
     "commands": [
       {
-        "command": "competitive-assistant.helloWorld",
-        "title": "Hello World"
+        "command": "competitive-assistant.create-solution",
+        "title": "Create Solution"
+      },
+      {
+        "command": "competitive-assistant.create-test",
+        "title": "Create Test"
+      }
+    ],
+    "viewsContainers": {
+      "panel": [
+        {
+          "id": "competitive-assistant-panel",
+          "title": "Competitive Assistant",
+          "icon": ""
+        }
+      ]
+    },
+    "views": {
+      "competitive-assistant-panel": [
+        {
+          "id": "competitive-assistant-panel-tests",
+          "name": "Tests"
+        },
+        {
+          "id": "competitive-assistant-panel-actions",
+          "name": "Actions"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "competitive-assistant-panel-tests",
+        "contents": "This file is not a solution. [Create a solution](command:competitive-assistant.create-solution).",
+        "when": "competitive-assistant.welcome == create-solution"
+      },
+      {
+        "view": "competitive-assistant-panel-tests",
+        "contents": "Open a file to create a solution.",
+        "when": "competitive-assistant.welcome == open-file"
+      },
+      {
+        "view": "competitive-assistant-panel-tests",
+        "contents": "This language is not supported.",
+        "when": "competitive-assistant.welcome == unsupported-language"
+      },
+      {
+        "view": "competitive-assistant-panel-tests",
+        "contents": "This solution has no tests. [Create a test](command:competitive-assistant.create-test)",
+        "when": "competitive-assistant.welcome == create-test"
       }
     ]
   },
