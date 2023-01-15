@@ -15,7 +15,7 @@ export class TestsEditorNotebookSerializer
       data.cells.map((cellData) => {
         return new vscode.NotebookCellData(
           cellData.kind,
-          cellData.text,
+          cellData.text.replaceAll("\r\n", "\n"),
           cellData.languageId
         );
       })
@@ -29,7 +29,7 @@ export class TestsEditorNotebookSerializer
       metadata: data.metadata,
       cells: data.cells.map((cell) => ({
         kind: cell.kind,
-        text: cell.value,
+        text: cell.value.replaceAll("\r\n", "\n"),
         languageId: cell.languageId,
       })),
     };

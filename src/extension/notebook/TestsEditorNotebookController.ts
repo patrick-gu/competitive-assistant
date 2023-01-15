@@ -181,8 +181,20 @@ export class TestsEditorNotebookController {
     input: vscode.NotebookCell,
     output: vscode.NotebookCell
   ): Promise<void> {
-    const inputData = input.document.getText();
-    const expectedOutput = output.document.getText();
+    let inputData = input.document.getText().replaceAll("\r\n", "\n");
+    if (
+      inputData.length > 0 &&
+      inputData.charAt(inputData.length - 1) !== "\n"
+    ) {
+      inputData += "\n";
+    }
+    let expectedOutput = output.document.getText().replaceAll("\r\n", "\n");
+    if (
+      expectedOutput.length > 0 &&
+      expectedOutput.charAt(expectedOutput.length - 1) !== "\n"
+    ) {
+      expectedOutput += "\n";
+    }
 
     const inputExecution = this.controller.createNotebookCellExecution(input);
     const outputExecution = this.controller.createNotebookCellExecution(output);
@@ -193,8 +205,8 @@ export class TestsEditorNotebookController {
     const res = await run(compileResult, inputData, 1000);
 
     const runSuccess = res.exitCode === 0;
-    const foundStdout = res.stdout;
-    const foundStderr = res.stderr;
+    const foundStdout = res.stdout.replaceAll("\r\n", "\n");
+    const foundStderr = res.stderr.replaceAll("\r\n", "\n");
     const outputSuccess = runSuccess && foundStdout === expectedOutput;
 
     await inputExecution.replaceOutput([
