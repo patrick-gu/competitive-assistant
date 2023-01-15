@@ -9,11 +9,19 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-    "onCommand:competitive-assistant.helloWorld"
-  ],
-  "main": "./out/extension.js",
+  "main": "./out/extension/extension.js",
   "contributes": {
+    "notebooks": [
+      {
+        "type": "competitive-assistant.tests-editor",
+        "displayName": "Tests Editor",
+        "selector": [
+          {
+            "filenamePattern": "*.tests.json"
+          }
+        ]
+      }
+    ],
     "commands": [
       {
         "command": "competitive-assistant.create-solution",
@@ -22,49 +30,6 @@
       {
         "command": "competitive-assistant.create-test",
         "title": "Create Test"
-      }
-    ],
-    "viewsContainers": {
-      "panel": [
-        {
-          "id": "competitive-assistant-panel",
-          "title": "Competitive Assistant",
-          "icon": ""
-        }
-      ]
-    },
-    "views": {
-      "competitive-assistant-panel": [
-        {
-          "id": "competitive-assistant-panel-tests",
-          "name": "Tests"
-        },
-        {
-          "id": "competitive-assistant-panel-actions",
-          "name": "Actions"
-        }
-      ]
-    },
-    "viewsWelcome": [
-      {
-        "view": "competitive-assistant-panel-tests",
-        "contents": "This file is not a solution. [Create a solution](command:competitive-assistant.create-solution).",
-        "when": "competitive-assistant.welcome == create-solution"
-      },
-      {
-        "view": "competitive-assistant-panel-tests",
-        "contents": "Open a file to create a solution.",
-        "when": "competitive-assistant.welcome == open-file"
-      },
-      {
-        "view": "competitive-assistant-panel-tests",
-        "contents": "This language is not supported.",
-        "when": "competitive-assistant.welcome == unsupported-language"
-      },
-      {
-        "view": "competitive-assistant-panel-tests",
-        "contents": "This solution has no tests. [Create a test](command:competitive-assistant.create-test)",
-        "when": "competitive-assistant.welcome == create-test"
       }
     ]
   },
@@ -77,16 +42,16 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.74.0",
     "@types/glob": "^8.0.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
+    "@vscode/test-electron": "^2.2.0",
     "eslint": "^8.28.0",
     "glob": "^8.0.3",
     "mocha": "^10.1.0",
-    "typescript": "^4.9.3",
-    "@vscode/test-electron": "^2.2.0"
+    "typescript": "^4.9.3"
   }
 }
