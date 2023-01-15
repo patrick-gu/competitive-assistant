@@ -10,6 +10,10 @@
     "Other"
   ],
   "main": "./out/extension/extension.js",
+  "activationEvents": [
+    "onLanguage:python",
+    "onLanguage:cpp"
+  ],
   "contributes": {
     "notebooks": [
       {
